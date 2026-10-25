@@ -13,11 +13,11 @@ class User(AbstractUser):
     phone = models.CharField(max_length=30, blank=True)
     bio = models.TextField(blank=True)
 
-    USERNAME_FIELD = "email"  # users log in with their e-mail
+    USERNAME_FIELD = "email"  
     REQUIRED_FIELDS = ["username"]
 
     def save(self, *args, **kwargs):
-        # superusers are always admins
+        
         if self.is_superuser:
             self.role = self.Role.ADMIN
         self.email = self.email.lower()
