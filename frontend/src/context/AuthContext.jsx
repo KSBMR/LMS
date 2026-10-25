@@ -6,9 +6,9 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // true while restoring the session
+  const [loading, setLoading] = useState(true);
 
-  // Restore the session on page load using the HttpOnly refresh cookie.
+
   useEffect(() => {
     setAuthFailureHandler(() => setUser(null));
     refreshAccess()
