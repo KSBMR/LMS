@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "accounts.middleware.RequestLogMiddleware",  # custom: request id + timing log
+    "accounts.middleware.RequestLogMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -69,7 +69,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-# Argon2/PBKDF2: Django hashes with PBKDF2-SHA256 by default (salted, 600k+ iterations).
+
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
@@ -79,7 +79,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# ---------------------------------------------------------------- DRF
+# DRF
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["accounts.authentication.JWTAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {"anon": "100/hour" if not DEBUG else "10000/hour"},
 }
 
-# ---------------------------------------------------------------- JWT
+#------------ JWT
 JWT = {
     "SECRET": os.environ.get("JWT_SECRET", SECRET_KEY),
     "ALGORITHM": "HS256",
@@ -102,16 +102,16 @@ JWT = {
     "COOKIE_SAMESITE": "Lax",
 }
 
-# ---------------------------------------------------------------- CORS
+# ------------- CORS
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
 CORS_ALLOWED_ORIGINS = [FRONTEND_URL, "http://127.0.0.1:5173"]
 CORS_ALLOW_CREDENTIALS = True  # needed for the HttpOnly refresh cookie
 
-# ---------------------------------------------------------------- Email
-# Dev: reset e-mails are printed to the runserver console.
+# ----------- Email
+
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "LMS <no-reply@lms.local>")
-PASSWORD_RESET_TIMEOUT = 60 * 60  # reset links valid for 1 hour
+PASSWORD_RESET_TIMEOUT = 60 * 60  
 
 LOGGING = {
     "version": 1,
