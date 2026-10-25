@@ -2,8 +2,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
-// Access token lives only in memory (not localStorage) -> not readable by injected scripts after reload.
-// The refresh token is an HttpOnly cookie managed by the server.
+
 let accessToken = null;
 let onAuthFailure = () => {};
 
@@ -49,7 +48,7 @@ api.interceptors.response.use(
   }
 );
 
-// Flatten DRF error payloads into one readable string.
+
 export function errMsg(err) {
   const d = err?.response?.data;
   if (!err?.response) return "Cannot reach the server. Is the backend running?";
