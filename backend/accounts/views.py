@@ -79,7 +79,7 @@ class LogoutView(APIView):
                 jwt_.blacklist_payload(jwt_.decode_token(token, jwt_.REFRESH))
             except jwt_.TokenError:
                 pass
-        # also revoke the presented access token, if any
+        
         header = request.headers.get("Authorization", "")
         if header.lower().startswith("bearer "):
             try:
@@ -113,7 +113,7 @@ class ForgotPasswordView(APIView):
             )
             msg.attach_alternative(render_to_string("emails/password_reset.html", ctx), "text/html")
             msg.send(fail_silently=True)
-        # same response either way: do not reveal which emails are registered
+        
         return Response({"detail": "If that email is registered, a reset link has been sent."})
 
 
@@ -138,7 +138,7 @@ class ResetPasswordView(APIView):
         except DjangoValidationError as exc:
             return Response({"new_password": exc.messages}, status=status.HTTP_400_BAD_REQUEST)
         user.set_password(d["new_password"])
-        user.save()  # changes the hash, so the token cannot be reused
+        user.save()  
         return Response({"detail": "Password has been reset. You can now log in."})
 
 
