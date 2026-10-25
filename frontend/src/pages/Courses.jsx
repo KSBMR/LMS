@@ -9,7 +9,7 @@ export default function Courses() {
   const [level, setLevel] = useState("");
   const cats = useFetch("/categories/");
 
-  useEffect(() => { const t = setTimeout(() => setQ(search), 300); return () => clearTimeout(t); }, [search]); // debounce
+  useEffect(() => { const t = setTimeout(() => setQ(search), 300); return () => clearTimeout(t); }, [search]); 
   const { data, loading, error, reload } = useFetch("/courses/", { search: q, category, level });
 
   return (
