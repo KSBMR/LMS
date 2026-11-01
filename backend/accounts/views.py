@@ -48,7 +48,7 @@ class LoginView(APIView):
 
 
 class RefreshView(APIView):
-    """Rotate: validate refresh cookie, blacklist it, issue a new pair."""
+    
     permission_classes = [AllowAny]
     authentication_classes = []
 
